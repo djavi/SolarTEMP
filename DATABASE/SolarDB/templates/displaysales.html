@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="{% static 'css/bootstrap.min.css' %}"rel="stylesheet">
+	<link href="{% static 'css/stylecss.css' %}" rel="stylesheet" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{% static 'media/solar-titlebar.png' %}" />
+    <title>Sales Properties Summary</title>
+</head> 
+
+<body>
+	<div>
+        <div class="topnav">
+            <img src="{% static 'media/solarpic.png' %}" class="topnav-logo">
+            <ul>
+                 <li><a href="/homepage">Home</a></li>
+                 <li class="dropdown">
+                     <a href="javascript:void(0)" class="dropbtn">Sales Properties</a>
+                     <div class="dropdown-content">
+                         <a href="#">Display</a>
+                         <a href="#">Add</a>
+                         <a href="#">Edit</a>
+                     </div>
+                 </li>
+                 <li class="dropdown">
+                     <a href="javascript:void(0)" class="dropbtn">Lease Properties</a>
+                     <div class="dropdown-content">
+                         <a href="#">Display</a>
+                         <a href="#">Add</a>
+                         <a href="#">Edit</a>
+                     </div>
+                 </li>
+            </ul>
+            <select>
+                <option value="0">Payment Status</option>
+                <option value="1">Region</option>
+                <option value="2">Province</option>
+                <option value="3">Municipality</option>
+                <option value="4">Barangay</option>
+                <option value="5">Registered Landowner</option>
+                <option value="6">Payee</option>
+                <option value="7">Address</option>
+                <option value="8">Contact Number</option>
+                <option value="9">Tilte No.</option>
+                <option value="10">Area</option>
+                <option value="11">Sale Price Per Hectare</option>
+                <option value="12">Title Contract Price</option>
+            </select> 
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search" title="Search">
+
+        </div>
+        <div style="margin-left: 10px; padding-top: 100px;">
+            <table id="myTable">
+                <thead>
+				    <tr style="text-align: center;">
+				    	<th rowspan="2" id="tr-head">Payment Status (%PAID)</th>
+				    	<th rowspan="2" id="tr-head">Region</th> 
+				    	<th rowspan="2" id="tr-head">Province</th>
+				    	<th rowspan="2" id="tr-head">Municipality</th>
+				    	<th rowspan="2" id="tr-head">Barangay</th>
+				    	<th rowspan="2" id="tr-head">Registered Landowner</th>
+				    	<th rowspan="2" id="tr-head">Payee</th>
+				    	<th rowspan="2" id="tr-head">Title No.</th>
+				    	<th rowspan="2" id="tr-head">Area(hectares)</th>
+				    	<th rowspan="2" id="tr-head">Sale Price Per Hectare</th>
+				    	<th rowspan="2" id="tr-head">Total Contract Price</th>
+				    	<th colspan="2" id="tr-head">1st Payment</th>
+				    	<th colspan="2" id="tr-head">2nd Payment</th>
+				    	<th colspan="2" id="tr-head">3rd Payment</th>
+				    	<th colspan="2" id="tr-head">4th Payment</th>
+				    	<th colspan="2" id="tr-head">5th Payment</th>
+				    	<th colspan="2" id="tr-head">6th Payment</th>
+				    	<th colspan="2" id="tr-head">7th Payment</th>
+				    	<th colspan="2" id="tr-head">8th Payment</th>
+				    	<th colspan="2" id="tr-head">9th Payment</th>
+				    	<th colspan="2" id="tr-head">10th Payment</th>
+				    	<th rowspan="2" id="tr-head">Released Payment</th>
+				    	<th rowspan="2" id="tr-head">Balance</th>
+				    	<th colspan="2" id="tr-head">BIR</th>
+				    	<th rowspan="1" id="tr-head">LGU</th>
+				    	<th colspan="2" id="tr-head">ROD</th>
+				    	<th rowspan="1" id="tr-head">Others</th>
+				    	<th rowspan="2" id="tr-head">Sum of other expenses</th>
+				    	<th rowspan="2" id="tr-head">Balance Less Taxes and Other Fees</th>
+                        
+				    </tr>
+				      
+				    <tr>
+				    	<th>Amount</th>
+				    	<th>Date Released</th>
+				    	<th>Amount</th>
+				    	<th>Date Released</th>
+				    	<th>Amount</th>
+				    	<th>Date Released</th>
+				    	<th>Amount</th>
+				    	<th>Date Released</th>
+				    	<th>Amount</th>
+				    	<th>Date Released</th>
+				    	<th>Amount</th>
+				    	<th>Date Released</th>
+				    	<th>Amount</th>
+				    	<th>Date Released</th>
+				    	<th>Amount</th>
+				    	<th>Date Released</th>
+				    	<th>Amount</th>
+				    	<th>Date Released</th>
+				    	<th>Amount</th>
+				    	<th>Date Released</th>
+				    	<th>CGT(6%)</th>
+				    	<th>DST(3%)</th>
+				    	<th>Transfer Fee(1%)</th>
+				    	<th>LRA Fee(1%)</th>
+				    	<th>I.T Fee</th>
+				    	<th>Notorial Fee(1%)</th>
+				    </tr>
+                </thead>
+                <tbody>
+                    {% for property  in all_properties%}
+                <tr id="tr-hover">
+				    <td> </td>
+					<td id="tr-text"> {{ property.region}}</td>
+                    <td id="tr-text"> {{ property.province}}</td>
+                    <td id="tr-text"> {{ property.municipality}}</td>
+                    <td id="tr-text"> {{ property.barangay}}</td>
+                    <td id="tr-text"> {{ property.regLandOwner}}</td>   
+                    <td id="tr-text"> {{ property.Payee}}</td>
+                    <td id="tr-text"> {{ property.titleNum}}</td> 
+                    <td id="tr-number"> {{ property.areaHectares}}</td>
+                    <td id="tr-number"> {{ property.pricePerHectare}}</td>
+                    <td id="tr-number">{{ property.totalContractPrice}} </td>  
+                    <td id="tr-number"> {{ property.firstPayAmount}}</td>
+                    <td id="tr-text"> {{ property.firstPayDate}}</td>
+                    <td id="tr-number"> {{ property.secPayAmount}}</td>
+                    <td id="tr-text"> {{ property.secPayDate}}</td>
+                    <td id="tr-number"> {{ property.thirdPayAmount}}</td>
+                    <td id="tr-text"> {{ property.thirdPayDate}}</td>
+                    <td id="tr-number"> {{ property.fourthPayAmount}}</td>
+                    <td id="tr-text"> {{ property.fourthPayDate}}</td>
+                    <td id="tr-number"> {{ property.fifthPayAmount}}</td>
+                    <td id="tr-text"> {{ property.fifthPayDate}}</td>
+                         
+                    <td id="tr-number"> {{ property.sixthPayAmount}}</td>
+                    <td id="tr-text"> {{ property.sixthPayDate}}</td>
+                    <td id="tr-number"> {{ property.seventhPayAmount}}</td>
+                    <td id="tr-text"> {{ property.seventhPayDate}}</td>
+    
+                    <td id="tr-number"> {{ property.eigthPayAmount}}</td>
+                    <td id="tr-text"> {{ property.eigthPayDate}}</td>
+                    <td id="tr-number"> {{ property.ninthPayAmount}}</td>
+                    <td id="tr-text"> {{ property.ninthPayDate}}</td>
+                    <td id="tr-number"> {{ property.tenthPayAmount}}</td>
+                    <td id="tr-text"> {{ property.tenthPayDate}}</td>    
+                         
+                    <td id="tr-number"> {{ property.releasedPayment}}</td>    
+                    <td id="tr-number"> {{ property.balance}}</td>    
+                    
+                    <td id="tr-number"> {{ property.BIRcgt}}</td>    
+                    <td id="tr-number"> {{ property.BIRdst}}</td>  
+                    <td id="tr-number"> {{ property.LGUtransfer}}</td>    
+                    <td id="tr-number"> {{ property.RODlra}}</td>  
+                    <td>{{ property.RODit}}</td>
+                    <td>{{ property.OTHERSnotorial}}</td>
+                    <td id="tr-number"> {{ property.SUMother}}</td>    
+                    <td id="tr-number"> {{ property.TAXother}}</td> 
+                       
+                    
+                </tr>
+				 {% endfor%}
+                </tbody>
+				  				  
+            </table>
+        </div>
+    </div>
+</body>
+
+       
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, dropdown;
+        dropdown = document.getElementById("list").value;
+        
+        
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[dropdown];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }       
+        }
+    }
+</script>
+</html>
